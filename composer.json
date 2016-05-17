@@ -1,0 +1,8 @@
+{
+	"name": "andresgcarmona/micromvc",
+    "autoload": {
+        "psr-0" : {
+            "andresgcarmona\\MicroMVC" : "src"
+        }
+    }
+}
