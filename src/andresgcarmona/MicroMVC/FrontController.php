@@ -125,10 +125,10 @@ class FrontController{
 	}
 
 	private function _route(){
-		$reflex = new ReflectionClass($this->getController());
+		$reflex = new ReflectionClass('App\\Controllers\\' . $this->getController());
 		
 		if($reflex->hasMethod($this->getAction())){
-			$this->_request = new Request($this->_controller, $this->_action, $this->_params);
+			//$this->_request = new Request($this->_controller, $this->_action, $this->_params);
 
 			$controller = $reflex->newInstance();
 			$controller->setRequest($this->_request);
