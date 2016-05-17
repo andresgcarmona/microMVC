@@ -125,31 +125,26 @@ class FrontController{
 	}
 
 	private function _route(){
-		if(class_exists($this->getController())){
-			$reflex = new ReflectionClass($this->getController());
+		$reflex = new ReflectionClass($this->getController());
+		
+		if($reflex->hasMethod($this->getAction())){
+			$this->_request = new Request($this->_controller, $this->_action, $this->_params);
+
+			$controller = $reflex->newInstance();
+			$controller->setRequest($this->_request);
 			
-			if($reflex->hasMethod($this->getAction())){
-				$this->_request = new Request($this->_controller, $this->_action, $this->_params);
-
-				$controller = $reflex->newInstance();
-				$controller->setRequest($this->_request);
-				
-				//Get init method if exists
-				if($reflex->hasMethod('init')){
-					$init = $reflex->getMethod('init');
-					$init->invoke($controller);
-				}
-
-				$action = $reflex->getMethod($this->getAction());
-				
-				//$this->_response = new Response($action->invoke($controller));
+			//Get init method if exists
+			if($reflex->hasMethod('init')){
+				$init = $reflex->getMethod('init');
+				$init->invoke($controller);
 			}
-			else{
-				throw new Exception('Action');
-			}
+
+			$action = $reflex->getMethod($this->getAction());
+			
+			//$this->_response = new Response($action->invoke($controller));
 		}
 		else{
-			throw new Exception('Controller');
+			throw new Exception('Action');
 		}
 
 		return $this;
