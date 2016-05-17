@@ -1,4 +1,4 @@
-<?php namespace andresgcarmona/MicroMVC:
+<?php namespace andresgcarmona/MicroMVC;
 
 class Example {
 	
