@@ -1,7 +1,11 @@
-<?php namespace andresgcarmona\MicroMVC;
+<?php
 
-use \ReflectionClass;
-use \Exception;
+namespace andresgcarmona\MicroMVC;
+
+use andresgcarmona\MicroMVC\Http\Request;
+use andresgcarmona\MicroMVC\Http\Response;
+use ReflectionClass;
+use Exception;
 
 class FrontController{
 	protected $_controller;
@@ -124,11 +128,15 @@ class FrontController{
 		}
 	}
 
+	public function getNamespace($path) {
+		return str_replace('/', '\\', $path);
+	}
+
 	private function _route(){
-		$reflex = new ReflectionClass('App\\Controllers\\' . $this->getController());
+		$reflex = new ReflectionClass($this->getNamespace($this->_app->getControllersPath() . $this->getController()));
 		
 		if($reflex->hasMethod($this->getAction())){
-			//$this->_request = new Request($this->_controller, $this->_action, $this->_params);
+			$this->_request = new Request($this->_controller, $this->_action, $this->_params);
 
 			$controller = $reflex->newInstance();
 			$controller->setRequest($this->_request);
@@ -140,8 +148,7 @@ class FrontController{
 			}
 
 			$action = $reflex->getMethod($this->getAction());
-			
-			//$this->_response = new Response($action->invoke($controller));
+			$this->_response = new Response($action->invoke($controller));
 		}
 		else{
 			throw new Exception('Action');
