@@ -4,7 +4,7 @@ namespace andresgcarmona\MicroMVC\View;
 
 use andresgcarmona\MicroMVC\FrontController;
 
-class View extends ViewBase {
+class View extends BaseView {
 	protected $_content;
 	protected $_view;
 	protected $_data;

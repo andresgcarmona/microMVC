@@ -1,5 +1,8 @@
 {
 	"name": "andresgcarmona/micromvc",
+	"require": {
+		"nesbot/carbon": "~1.18"
+	},
     "autoload": {
         "psr-0" : {
             "andresgcarmona\\MicroMVC" : "src"

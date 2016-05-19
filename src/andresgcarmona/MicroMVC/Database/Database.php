@@ -21,6 +21,8 @@ class Database {
 		];
 
 		$this->connection = new mysqli($db['host'], $db['user'], $db['password'], $db['database']);
+		$this->connection->report_mode = MYSQLI_REPORT_ALL;
+		
         if($this->connection->connect_error) die($this->connection->connect_error);
 	}
 
@@ -32,5 +34,9 @@ class Database {
 		}
 
 		return self::$_instance;
+	}
+
+	public function getConnection() {
+		return $this->connection;
 	}
 }

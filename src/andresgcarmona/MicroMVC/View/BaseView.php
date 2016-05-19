@@ -6,7 +6,7 @@ use andresgcarmona\MicroMVC\FrontController;
 use ArrayAccess;
 use ArrayObject;
 
-abstract class ViewBase extends ArrayObject implements ArrayAccess {
+abstract class BaseView extends ArrayObject implements ArrayAccess {
 	protected $data = [];
 
 	public function __construct($data = []){
